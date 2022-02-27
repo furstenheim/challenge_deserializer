@@ -1,0 +1,23 @@
+[package]
+name = "serde_challenge_encoding"
+version = "0.0.1"
+authors = ["Gabriel Fürstenheim <furstenheim@gmail.com>"]
+edition = "2022"
+rust-version = "1.59"
+license = "MIT"
+description = "Support for Programming challenges in Serde"
+repository = "https://github.com/furstenheim"
+documentation = ""
+readme = "README.md"
+keywords = ["deserializer", "competitive", "programming", "serde"]
+
+[dependencies]
+serde = "1.0.69"
+
+[dev-dependencies]
+anyhow = "1.0"
+indoc = "1.0"
+serde_derive = "1.0"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
