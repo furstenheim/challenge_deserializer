@@ -12,7 +12,7 @@ readme = "README.md"
 keywords = ["deserializer", "competitive", "programming"]
 
 [dependencies]
-
+challenge_encoding_derive = {  version = "^0", path = "../challenge_encoding_derive" }
 [dev-dependencies]
 anyhow = "1.0"
 indoc = "1.0"
