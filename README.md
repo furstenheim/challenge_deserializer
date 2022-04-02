@@ -1,1 +1,2 @@
-serde deserializer for computer programming competition
+macro deserializer for computer programming competition
+

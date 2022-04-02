@@ -1,10 +1,8 @@
 #[cfg(test)]
 mod tests {
     use proc_macro2;
-    use syn::{DeriveInput, parse};
-    use syn::Expr;
+    use syn::{DeriveInput};
     use proc_macro2::TokenStream;
-    use syn::Token;
     use crate::impl_challenge_encoding;
     use super::*;
 
@@ -17,7 +15,8 @@ struct Struct {
         ";
         let stream: TokenStream = str.parse().unwrap();
         let ast = syn::parse2::<DeriveInput>(stream).unwrap();
-        impl_challenge_encoding(&ast);
+        let stream1 = impl_challenge_encoding(&ast);
+        println!("{}", stream1);
         assert_eq!(2 + 2, 4);
     }
 }
