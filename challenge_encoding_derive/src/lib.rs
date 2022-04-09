@@ -5,7 +5,7 @@ use syn::Fields::*;
 use proc_macro2::TokenStream;
 use quote::quote;
 use syn;
-use syn::{Data, DataStruct, DeriveInput, Fields, FieldsNamed};
+use syn::{Data, DataStruct, DeriveInput, Fields, FieldsNamed, PathSegment};
 
 #[proc_macro_derive(ChallengeEncoding)]
 pub fn challenge_encoding_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
@@ -20,7 +20,7 @@ fn impl_challenge_encoding(ast: &syn::DeriveInput) -> TokenStream {
     match &ast.data {
         syn::Data::Struct(ds) => {
             data_struct(ds);
-            println!("1111. {}", syn::Error::new_spanned(ast, "struct are not supported"))
+            println!("1111. {} {}", syn::Error::new_spanned(ast, "struct are not supported"), name)
         },
         syn::Data::Enum(_) => println!("22222. {}", syn::Error::new_spanned(ast, "enums are not supported")),
 
@@ -43,6 +43,8 @@ return gen.into();
 
 fn data_struct (ds: &syn::DataStruct) -> () {
     println!("length of fields: {}", ds.fields.len());
+
+    println!("hey there {:?}", ds);
     for field in ds.fields.iter() {
         match field.ty {
             syn::Type::Array(_) => panic!("Array error"),
@@ -54,7 +56,11 @@ fn data_struct (ds: &syn::DataStruct) -> () {
             syn::Type::Never(_) => panic!("Never error"),
             syn::Type::Paren(_) => panic!("Paren error"),
             syn::Type::Path(ref a) => {
-                println!("{:?}", 1);
+                assert!(a.qself.is_none(), "Unsupported type path for canonicalization!");
+
+                let last_path: &PathSegment = a.path.segments.last().unwrap();
+                println!("last path {:?}", a)
+
             },
             syn::Type::Ptr(_) => panic!("Ptr error"),
             syn::Type::Reference(_) => panic!("Reference error"),
