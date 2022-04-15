@@ -11,6 +11,9 @@ mod tests {
         let str = "
 struct Struct {
         active: bool,
+        #[challenge_encoding_attribute(index)]
+        inactive: int32,
+        someStruct: Struct
     }
         ";
         let stream: TokenStream = str.parse().unwrap();
